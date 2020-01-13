@@ -1,8 +1,9 @@
 import pygame
 BLACK = (0,0,0)
+WHITE = (255,255,255)
 
 
-0class Paddle(pygame.sprite.Sprite):
+class Paddle(pygame.sprite.Sprite):
 
     def __init__(self, color, width, height):
 
