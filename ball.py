@@ -7,13 +7,14 @@ BLACK = (0, 0, 0)
 class Ball(pygame.sprite.Sprite):
     # This class represents a car. It derives from the "Sprite" class in Pygame.
 
-    def __init__(self, color, width, height):
+    def __init__(self, color, width, height, paddles):
         # Call the parent class (Sprite) constructor
         super().__init__()
 
         self.image = pygame.Surface([width, height])
         self.image.fill(BLACK)
         self.image.set_colorkey(BLACK)
+        self.paddles = paddles
 
         # Draw the ball (a rectangle!)
         pygame.draw.rect(self.image, color, [0, 0, width, height])
@@ -30,3 +31,6 @@ class Ball(pygame.sprite.Sprite):
     def bounce(self):
         self.velocity[0] = -self.velocity[0]
         self.velocity[1] = randint(-8, 8)
+
+
+

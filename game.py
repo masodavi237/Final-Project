@@ -22,12 +22,19 @@ paddleB = Paddle(WHITE, 10, 100)
 paddleB.rect.x = 670
 paddleB.rect.y = 200
 
-ball = Ball(WHITE,10,10)
-ball.rect.x = 345
-ball.rect.y = 195
+
+
 
 # This will be a list that will contain all the sprites we intend to use in our game.
 all_sprites_list = pygame.sprite.Group()
+paddle_list = pygame.sprite.Group()
+paddle_list.add(paddleA)
+paddle_list.add(paddleB)
+
+ball = Ball(WHITE,10,10, paddle_list)
+ball.rect.x = 345
+ball.rect.y = 195
+ball.rebound = False
 
 # Add the paddles to the list of sprites
 all_sprites_list.add(paddleA)
