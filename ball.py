@@ -33,8 +33,9 @@ class Ball(pygame.sprite.Sprite):
         self.velocity[1] = randint(-8, 8)
 
     def collide(self, paddle_list):
-        pygame.sprite.spritecollide(self, paddle_list, False)
-        if
+        if pygame.sprite.spritecollide(self, paddle_list, False):
+            self.velocity[0] = -self.velocity[0]
+            self.velocity[1] = randint(-8, 8)
 
 
 
