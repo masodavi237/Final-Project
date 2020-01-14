@@ -72,6 +72,8 @@ while carryOn:
 
     # --- Drawing code should go here
 
+    ball = Ball
+
     if ball.rect.x >= 690:
         ball.velocity[0] = -ball.velocity[0]
     if ball.rect.x <= 0:
