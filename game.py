@@ -80,6 +80,9 @@ while carryOn:
         ball.velocity[1] = -ball.velocity[1]
     if ball.rect.y < 0:
         ball.velocity[1] = -ball.velocity[1]
+
+
+
         # First, clear the screen to black.
     screen.fill(BLACK)
 

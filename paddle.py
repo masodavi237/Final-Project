@@ -32,3 +32,4 @@ class Paddle(pygame.sprite.Sprite):
 
         if self.rect.y > 400:
             self.rect.y = 400
+
