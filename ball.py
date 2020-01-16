@@ -15,7 +15,7 @@ class Ball(pygame.sprite.Sprite):
         self.image.fill(BLACK)
         self.image.set_colorkey(BLACK)
 
-
+        self.paddle_list = paddle_list
         # Draw the ball (a rectangle!)
         pygame.draw.rect(self.image, color, [0, 0, width, height])
 
@@ -25,15 +25,28 @@ class Ball(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
 
-    def update(self, paddle_list):
+
+    def update(self):
         self.rect.x += self.velocity[0]
         self.rect.y += self.velocity[1]
-        if pygame.sprite.spritecollide(self, paddle_list, False):
+        if pygame.sprite.spritecollide(self, self.paddle_list, False):
+            self.hit_paddle()
+
+        if self.rect.x >= 690:
             self.velocity[0] = -self.velocity[0]
-            self.velocity[1] = randint(-8, 8)
+        if self.rect.x <= 0:
+            self.velocity[0] = -self.velocity[0]
+        if self.rect.y > 490:
+            self.velocity[1] = -self.velocity[1]
+        if self.rect.y < 0:
+            self.velocity[1] = -self.velocity[1]
 
 
-    def bounce(self):
+    def hit_paddle(self):
+        if keys[pygame.K_w]:
+            self.velocity[1] = randint(self.velocity, 8)
+        if keys[pygame.K_s]:
+            self.velocity[1] = randint(-8 ,self.velocity + 2)
         self.velocity[0] = -self.velocity[0]
         self.velocity[1] = randint(-8, 8)
 

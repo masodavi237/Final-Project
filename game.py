@@ -65,23 +65,16 @@ while carryOn:
     if keys[pygame.K_UP]:
         paddleB.moveUp(5)
     if keys[pygame.K_DOWN]:
-        paddleB.moveDown(5)
+            paddleB.moveDown(5)
 
         # --- Game logic should go here
     all_sprites_list.update()
 
     # --- Drawing code should go here
 
-    ball = Ball
+    #ball = Ball()
 
-    if ball.rect.x >= 690:
-        ball.velocity[0] = -ball.velocity[0]
-    if ball.rect.x <= 0:
-        ball.velocity[0] = -ball.velocity[0]
-    if ball.rect.y > 490:
-        ball.velocity[1] = -ball.velocity[1]
-    if ball.rect.y < 0:
-        ball.velocity[1] = -ball.velocity[1]
+
 
 
 
