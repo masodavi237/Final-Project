@@ -24,6 +24,8 @@ class Ball(pygame.sprite.Sprite):
         # Fetch the rectangle object that has the dimensions of the image.
         self.rect = self.image.get_rect()
 
+        self.keys = pygame.key.get_pressed()
+
 
 
     def update(self):
@@ -43,9 +45,9 @@ class Ball(pygame.sprite.Sprite):
 
 
     def hit_paddle(self):
-        if keys[pygame.K_w]:
-            self.velocity[1] = randint(self.velocity, 8)
-        if keys[pygame.K_s]:
+        if self.keys[pygame.K_w]:
+            self.velocity[1] = randint(self.velocity - 2, 8)
+        if self.keys[pygame.K_s]:
             self.velocity[1] = randint(-8 ,self.velocity + 2)
         self.velocity[0] = -self.velocity[0]
         self.velocity[1] = randint(-8, 8)
