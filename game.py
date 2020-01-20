@@ -5,7 +5,7 @@ from ball import Ball
 
 pygame.init()
 
-# Define some colors
+
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUE = (0,0,255)
@@ -45,14 +45,13 @@ kill_listA =  pygame.sprite.Group()
 kill_listA.add(wallA)
 
 kill_listB = pygame.sprite.Group()
-# kill_listB.add(blockB)
+kill_listB.add(wallB)
 
 
 
 
 
-
-ball = Ball(WHITE,10,10, paddle_list, kill_listA, kill_listB, playerA, playerB)
+ball = Ball(WHITE,10,10, paddle_list, playerA, playerB, kill_listA, kill_listB, carryOn)
 ball.rect.x = 345
 ball.rect.y = 195
 ball.rebound = False

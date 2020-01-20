@@ -7,7 +7,7 @@ BLACK = (0, 0, 0)
 class Ball(pygame.sprite.Sprite):
     # This class represents a car. It derives from the "Sprite" class in Pygame.
 
-    def __init__(self, color, width, height, paddle_list, playerA, playerB, kill_listA):
+    def __init__(self, color, width, height, paddle_list, playerA, playerB, kill_listA, kill_listB, carryOn):
 
         super().__init__()
 
@@ -16,6 +16,14 @@ class Ball(pygame.sprite.Sprite):
         self.image.set_colorkey(BLACK)
 
         self.paddle_list = paddle_list
+
+        self.kill_listA = kill_listA
+        self.kill_listB = kill_listB
+
+        playerA
+
+
+
 
 
         pygame.draw.rect(self.image, color, [0, 0, width, height])
@@ -37,6 +45,11 @@ class Ball(pygame.sprite.Sprite):
         if pygame.sprite.spritecollide(self, self.paddle_list, False):
             self.hit_paddle()
 
+        if pygame.sprite.spritecollide(self, self.kill_listA, False):
+            self.b_win()
+
+        if pygame.sprite.spritecollide(self, self.kill_listB, False):
+            self.a_win()
 
 
         if self.rect.x >= 690:
@@ -57,7 +70,10 @@ class Ball(pygame.sprite.Sprite):
         self.velocity[0] = -self.velocity[0]
         self.velocity[1] = randint(-8, 8)
 
-    def kill(self):
+    def a_win(self, playerA, carryOn):
+        playerA += 1
+        carryon = False
+
         pass
 
 
