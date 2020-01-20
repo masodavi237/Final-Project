@@ -1,6 +1,7 @@
 import pygame
 BLACK = (0,0,0)
 WHITE = (255,255,255)
+BLUE = (0, 0, 255)
 
 
 class Paddle(pygame.sprite.Sprite):
@@ -19,6 +20,7 @@ class Paddle(pygame.sprite.Sprite):
 
 
         self.rect = self.image.get_rect()
+
 
 
     def moveUp(self, pixels):

@@ -8,6 +8,10 @@ pygame.init()
 # Define some colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+BLUE = (0,0,255)
+
+playerA = 0
+playerB = 0
 
 # Open a new window
 size = (700, 500)
@@ -23,76 +27,84 @@ paddleB.rect.x = 670
 paddleB.rect.y = 200
 
 
+wallA = Paddle(BLUE, 10, 700)
+wallA.rect.x = 0
+wallA.rect.y = 0
+
+wallB = Paddle(BLUE, 10, 700)
+wallB.rect.x = 690
+wallB.rect.y = 0
 
 
-# This will be a list that will contain all the sprites we intend to use in our game.
 all_sprites_list = pygame.sprite.Group()
 paddle_list = pygame.sprite.Group()
 paddle_list.add(paddleA)
 paddle_list.add(paddleB)
 
-ball = Ball(WHITE,10,10, paddle_list)
+kill_listA =  pygame.sprite.Group()
+kill_listA.add(wallA)
+
+kill_listB = pygame.sprite.Group()
+# kill_listB.add(blockB)
+
+
+
+
+
+
+ball = Ball(WHITE,10,10, paddle_list, kill_listA, kill_listB, playerA, playerB)
 ball.rect.x = 345
 ball.rect.y = 195
 ball.rebound = False
 
-# Add the paddles to the list of sprites
 all_sprites_list.add(paddleA)
 all_sprites_list.add(paddleB)
 all_sprites_list.add(ball)
 
-# The loop will carry on until the user exit the game (e.g. clicks the close button).
+
+all_sprites_list.add(wallA)
+all_sprites_list.add(wallB)
+
+kill_listA = pygame.sprite.Group()
+kill_listA.add(wallA)
+
+kill_listB = pygame.sprite.Group()
+kill_listB.add(wallB)
+
 carryOn = True
 
-# The clock will be used to control how fast the screen updates
 clock = pygame.time.Clock()
 
 # -------- Main Program Loop -----------
 while carryOn:
     # --- Main event loop
-    for event in pygame.event.get():  # User did something
-        if event.type == pygame.QUIT:  # If user clicked close
-            carryOn = False  # Flag that we are done so we exit this loop
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            carryOn = False
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_x:  # Pressing the x Key will quit the game
+            if event.key == pygame.K_x:
                 carryOn = False
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
         paddleA.moveUp(5)
+
     if keys[pygame.K_s]:
         paddleA.moveDown(5)
+
+
     if keys[pygame.K_UP]:
         paddleB.moveUp(5)
+
     if keys[pygame.K_DOWN]:
-            paddleB.moveDown(5)
+        paddleB.moveDown(5)
 
-        # --- Game logic should go here
+
+
     all_sprites_list.update()
-
-    # --- Drawing code should go here
-
-    #ball = Ball()
-
-
-
-
-
-        # First, clear the screen to black.
     screen.fill(BLACK)
-
-
-    # Draw the net
     pygame.draw.line(screen, WHITE, [349, 0], [349, 500], 5)
-
-    # Now let's draw all the sprites in one go. (For now we only have 2 sprites!)
     all_sprites_list.draw(screen)
-
-    # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
-
-    # --- Limit to 60 frames per second
     clock.tick(60)
-
-# Once we have exited the main program loop we can stop the game engine:
 pygame.quit()
