@@ -5,7 +5,7 @@ BLACK = (0, 0, 0)
 
 
 class Ball(pygame.sprite.Sprite):
-    # This class represents a car. It derives from the "Sprite" class in Pygame.
+
 
     def __init__(self, color, width, height, paddle_list, playerA, playerB, kill_listA, kill_listB, carryOn):
 
@@ -20,7 +20,10 @@ class Ball(pygame.sprite.Sprite):
         self.kill_listA = kill_listA
         self.kill_listB = kill_listB
 
-        playerA
+        self.playerA = playerA
+
+        self.kill = False
+
 
 
 
@@ -28,8 +31,10 @@ class Ball(pygame.sprite.Sprite):
 
         pygame.draw.rect(self.image, color, [0, 0, width, height])
 
-        self.velocity = [randint(4,8),randint(-8,8)]
+        # self.velocity = [randint(2,4),randint(-2,4)]
+        self.velo = randint(2,4)
 
+        self.velocity = [self.velo, 6-self.velo]
 
         self.rect = self.image.get_rect()
 
@@ -51,7 +56,6 @@ class Ball(pygame.sprite.Sprite):
         if pygame.sprite.spritecollide(self, self.kill_listB, False):
             self.a_win()
 
-
         if self.rect.x >= 690:
             self.velocity[0] = -self.velocity[0]
         if self.rect.x <= 0:
@@ -61,18 +65,23 @@ class Ball(pygame.sprite.Sprite):
         if self.rect.y < 0:
             self.velocity[1] = -self.velocity[1]
 
-
     def hit_paddle(self):
         if self.keys[pygame.K_w]:
-            self.velocity[1] = randint(self.velocity - 2, 8)
+            self.velocity[1] = randint(self.velocity[1], 4)
         if self.keys[pygame.K_s]:
-            self.velocity[1] = randint(-8 ,self.velocity + 2)
+            self.velocity[1] = randint(-4, self.velocity)
+
         self.velocity[0] = -self.velocity[0]
         self.velocity[1] = randint(-8, 8)
 
-    def a_win(self, playerA, carryOn):
-        playerA += 1
-        carryon = False
+    def a_win(self):
+        self.kill = True
+
+    def b_win(self):
+        self.kill = True
+
+
+
 
         pass
 

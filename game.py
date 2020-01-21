@@ -6,6 +6,7 @@ from ball import Ball
 pygame.init()
 
 
+
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUE = (0,0,255)
@@ -27,11 +28,11 @@ paddleB.rect.x = 670
 paddleB.rect.y = 200
 
 
-wallA = Paddle(BLUE, 10, 700)
+wallA = Paddle(BLACK, 10, 700)
 wallA.rect.x = 0
 wallA.rect.y = 0
 
-wallB = Paddle(BLUE, 10, 700)
+wallB = Paddle(BLACK, 10, 700)
 wallB.rect.x = 690
 wallB.rect.y = 0
 
@@ -48,6 +49,7 @@ kill_listB = pygame.sprite.Group()
 kill_listB.add(wallB)
 
 
+carryOn = True
 
 
 
@@ -70,7 +72,6 @@ kill_listA.add(wallA)
 kill_listB = pygame.sprite.Group()
 kill_listB.add(wallB)
 
-carryOn = True
 
 clock = pygame.time.Clock()
 
@@ -83,6 +84,10 @@ while carryOn:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_x:
                 carryOn = False
+
+    if ball.kill:
+        carryOn = False
+
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
@@ -106,4 +111,6 @@ while carryOn:
     all_sprites_list.draw(screen)
     pygame.display.flip()
     clock.tick(60)
+
+
 pygame.quit()
