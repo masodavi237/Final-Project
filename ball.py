@@ -1,5 +1,7 @@
 import pygame
-from random import randint
+
+from random import randint, uniform
+import math
 
 BLACK = (0, 0, 0)
 
@@ -24,6 +26,8 @@ class Ball(pygame.sprite.Sprite):
 
         self.kill = False
 
+        self.speed = math.sqrt(18)
+
 
         self.x = 5.6
         self.y = 4.5
@@ -33,9 +37,12 @@ class Ball(pygame.sprite.Sprite):
         pygame.draw.rect(self.image, color, [0, 0, width, height])
 
         # self.velocity = [randint(2,4),randint(-2,4)]
-        self.velo = randint(2,4)
 
-        self.velocity = [self.velo, 6-self.velo]
+
+        self.velocity = [uniform(3,4)]
+        self.yspeed = math.sqrt((self.speed**2) - (self.velocity[0]**2))
+        self.velocity.append(self.yspeed)
+
 
         self.rect = self.image.get_rect()
 
