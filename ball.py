@@ -25,7 +25,8 @@ class Ball(pygame.sprite.Sprite):
         self.kill = False
 
 
-
+        self.x = 5.6
+        self.y = 4.5
 
 
 
@@ -45,8 +46,10 @@ class Ball(pygame.sprite.Sprite):
 
 
     def update(self):
-        self.rect.x += self.velocity[0]
-        self.rect.y += self.velocity[1]
+        self.x += self.velocity[0]
+        self.rect.x  = int(self.x)
+        self.y +=  self.velocity[1]
+        self.rect.y += int(self.y)
         if pygame.sprite.spritecollide(self, self.paddle_list, False):
             self.hit_paddle()
 
@@ -57,22 +60,22 @@ class Ball(pygame.sprite.Sprite):
             self.a_win()
 
         if self.rect.x >= 690:
-            self.velocity[0] = -self.velocity[0]
+            self.velocity[0] = -1 * self.velocity[0]
         if self.rect.x <= 0:
-            self.velocity[0] = -self.velocity[0]
+            self.velocity[0] = -1 * self.velocity[0]
         if self.rect.y > 490:
-            self.velocity[1] = -self.velocity[1]
+            self.velocity[1] = -1 * self.velocity[1]
         if self.rect.y < 0:
-            self.velocity[1] = -self.velocity[1]
+            self.velocity[1] = -1 * self.velocity[1]
 
     def hit_paddle(self):
         if self.keys[pygame.K_w]:
             self.velocity[1] = randint(self.velocity[1], 4)
         if self.keys[pygame.K_s]:
-            self.velocity[1] = randint(-4, self.velocity)
+            self.velocity[1] = randint(-4, self.velocity[1])
 
         self.velocity[0] = -self.velocity[0]
-        self.velocity[1] = randint(-8, 8)
+        self.velocity[1] = randint(-4, 4)
 
     def a_win(self):
         self.kill = True
