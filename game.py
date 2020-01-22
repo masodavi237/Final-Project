@@ -1,19 +1,16 @@
-# Import the pygame library and initialise the game engine
+
 import pygame
 from paddle import Paddle
 from ball import Ball
-import math
 
 pygame.init()
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-BLUE = (0,0,255)
+BLUE = (0, 0, 255)
 
 playerA = 0
 playerB = 0
-
-# Open a new window
 size = (700, 500)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Pong")
@@ -41,7 +38,7 @@ paddle_list = pygame.sprite.Group()
 paddle_list.add(paddleA)
 paddle_list.add(paddleB)
 
-kill_listA =  pygame.sprite.Group()
+kill_listA = pygame.sprite.Group()
 kill_listA.add(wallA)
 
 kill_listB = pygame.sprite.Group()
@@ -50,9 +47,7 @@ kill_listB.add(wallB)
 
 carryOn = True
 
-
-
-ball = Ball(WHITE,10,10, paddle_list, playerA, playerB, kill_listA, kill_listB, carryOn)
+ball = Ball(WHITE,10,10, paddle_list, playerA, playerB, kill_listA, kill_listB)
 ball.rect.x = 345
 ball.rect.y = 195
 ball.rebound = False
@@ -73,43 +68,44 @@ kill_listB.add(wallB)
 
 
 clock = pygame.time.Clock()
-
-# -------- Main Program Loop -----------
-while carryOn:
-    # --- Main event loop
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            carryOn = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_x:
+for i in range(6):
+    carryOn = True
+    # -------- Main Program Loop -----------
+    while carryOn:
+        # --- Main event loop
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 carryOn = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_x:
+                    carryOn = False
 
-    if ball.kill:
-        carryOn = False
+        if ball.kill:
+            carryOn = False
 
+        keys = pygame.key.get_pressed()
+        ball.get_keys()
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-        paddleA.moveUp(5)
+        if keys[pygame.K_w]:
+            paddleA.moveUp(4)
 
-    if keys[pygame.K_s]:
-        paddleA.moveDown(5)
+        if keys[pygame.K_s]:
+            paddleA.moveDown(4)
 
+        if keys[pygame.K_UP]:
+            paddleB.moveUp(4)
 
-    if keys[pygame.K_UP]:
-        paddleB.moveUp(5)
+        if keys[pygame.K_DOWN]:
+            paddleB.moveDown(4)
 
-    if keys[pygame.K_DOWN]:
-        paddleB.moveDown(5)
+        all_sprites_list.update(playerA, playerB)
+        screen.fill(BLACK)
+        pygame.draw.line(screen, WHITE, [349, 0], [349, 500], 5)
+        all_sprites_list.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
 
+    pygame.quit()
 
-
-    all_sprites_list.update()
-    screen.fill(BLACK)
-    pygame.draw.line(screen, WHITE, [349, 0], [349, 500], 5)
-    all_sprites_list.draw(screen)
-    pygame.display.flip()
-    clock.tick(60)
-
-
-pygame.quit()
+    print(playerA)
+    print(playerB)
