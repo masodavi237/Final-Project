@@ -2,6 +2,7 @@
 import pygame
 from paddle import Paddle
 from ball import Ball
+import startup
 
 pygame.init()
 
@@ -51,10 +52,14 @@ ball = Ball(WHITE,10,10, paddle_list, playerA, playerB, kill_listA, kill_listB)
 ball.rect.x = 345
 ball.rect.y = 195
 ball.rebound = False
+ball2 = Ball(BLUE, 10, 10, paddle_list, playerA, playerB, kill_listA, kill_listB)
+ball2.rect.x = 200
+ball2.rect.y = 200
 
 all_sprites_list.add(paddleA)
 all_sprites_list.add(paddleB)
 all_sprites_list.add(ball)
+all_sprites_list.add(ball2)
 
 
 all_sprites_list.add(wallA)
@@ -68,8 +73,10 @@ kill_listB.add(wallB)
 
 
 clock = pygame.time.Clock()
+startup.open_screen(screen)
 for i in range(6):
     carryOn = True
+
     # -------- Main Program Loop -----------
     while carryOn:
         # --- Main event loop
@@ -80,7 +87,7 @@ for i in range(6):
                 if event.key == pygame.K_x:
                     carryOn = False
 
-        if ball.kill:
+        if ball.kill or ball2.kill:
             carryOn = False
 
         keys = pygame.key.get_pressed()
@@ -105,7 +112,8 @@ for i in range(6):
         pygame.display.flip()
         clock.tick(60)
 
-    pygame.quit()
+
 
     print(playerA)
     print(playerB)
+pygame.quit()
