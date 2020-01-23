@@ -11,7 +11,8 @@ WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 
 pygame.image.load("one.png")
-one = pygame.image.load("one.png")
+one = pygame.image.load("one.png").convert
+
 
 playerA = 0
 playerB = 0
