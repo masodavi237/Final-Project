@@ -22,16 +22,10 @@ RED = (255, 0, 0)
 
 pygame.init()
 
-pygame.image.load("C:\Users\David\Documents\Pyhton\Projects\one.png")
 
 # Set the width and height of the screen [width, height]
 size = (700, 500)
 screen = pygame.display.set_mode(size)
-
-pygame.display.set_caption("My Game")
-
-one = pygame.image.load("C:\Users\David\Documents\Pyhton\Projects\one.png").convert()
-
 
 
 # Loop until the user clicks the close button.
@@ -57,7 +51,7 @@ while not done:
     # If you want a background image, replace this clear with blit'ing the
     # background image.
     screen.fill(WHITE)
-    screen.blit(one, [300, 200])
+    pygame.draw.rect(screen, BLACK, [100, 100, 80, 80])
 
     # --- Drawing code should go here
 

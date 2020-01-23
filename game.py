@@ -1,18 +1,12 @@
-
 import pygame
 from paddle import Paddle
 from ball import Ball
-import startup
 
 pygame.init()
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
-
-pygame.image.load("one.png")
-one = pygame.image.load("one.png").convert
-
 
 playerA = 0
 playerB = 0
@@ -47,21 +41,13 @@ kill_listA.add(wallA)
 kill_listB = pygame.sprite.Group()
 kill_listB.add(wallB)
 
-carryOn = True
-
-ball = Ball(WHITE,10,10, paddle_list, playerA, playerB, kill_listA, kill_listB)
+ball = Ball(WHITE, 10, 10, paddle_list, playerA, playerB, kill_listA, kill_listB)
 ball.rect.x = 345
 ball.rect.y = 195
-ball.rebound = False
-ball2 = Ball(BLUE, 10, 10, paddle_list, playerA, playerB, kill_listA, kill_listB)
-ball2.rect.x = 200
-ball2.rect.y = 200
 
 all_sprites_list.add(paddleA)
 all_sprites_list.add(paddleB)
 all_sprites_list.add(ball)
-all_sprites_list.add(ball2)
-
 
 all_sprites_list.add(wallA)
 all_sprites_list.add(wallB)
@@ -72,9 +58,8 @@ kill_listA.add(wallA)
 kill_listB = pygame.sprite.Group()
 kill_listB.add(wallB)
 
-
 clock = pygame.time.Clock()
-startup.open_screen(screen)
+
 
 carryOn = True
 
@@ -88,33 +73,42 @@ while carryOn:
             if event.key == pygame.K_x:
                 carryOn = False
 
-    if ball.kill or ball2.kill:
+    if ball.killA:
+        playerA += 1
+        carryOn = False
+
+    if ball.killB:
+        playerB += 1
         carryOn = False
 
     keys = pygame.key.get_pressed()
     ball.get_keys()
 
     if keys[pygame.K_w]:
-        paddleA.moveUp(4)
+        paddleA.moveUp(5)
 
     if keys[pygame.K_s]:
-        paddleA.moveDown(4)
+        paddleA.moveDown(5)
 
     if keys[pygame.K_UP]:
-        paddleB.moveUp(4)
+        paddleB.moveUp(5)
 
     if keys[pygame.K_DOWN]:
-        paddleB.moveDown(4)
+        paddleB.moveDown(5)
 
     all_sprites_list.update(playerA, playerB)
     screen.fill(BLACK)
     pygame.draw.line(screen, WHITE, [349, 0], [349, 500], 5)
     all_sprites_list.draw(screen)
+
+    font = pygame.font.Font(None, 74)
+    text = font.render(str(playerA), 1, WHITE)
+    screen.blit(text, (250, 10))
+    text = font.render(str(playerB), 1, WHITE)
+    screen.blit(text, (420, 10))
+
     pygame.display.flip()
     clock.tick(60)
 
-
-
-print(playerA)
-print(playerB)
 pygame.quit()
+print(playerA, playerB)
