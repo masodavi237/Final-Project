@@ -31,10 +31,8 @@ class Ball(pygame.sprite.Sprite):
         if pygame.sprite.spritecollide(self, self.paddle_list, False):
             self.hit_paddle()
         if pygame.sprite.spritecollide(self, self.kill_listA, False):
-
             self.b_win(playerB)
         if pygame.sprite.spritecollide(self, self.kill_listB, False):
-
             self.a_win(playerA)
         if self.rect.y > 490:
             self.y = self.y - self.velocity[1] - 1

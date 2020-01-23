@@ -1,6 +1,8 @@
 import pygame
 from paddle import Paddle
 from ball import Ball
+from random import randint
+import time
 
 pygame.init()
 
@@ -8,6 +10,10 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 
+one_graphic = pygame.image.load("one.png").convert
+
+playerA_position_x = 100
+playerA_position_y = 200
 playerA = 0
 playerB = 0
 size = (700, 500)
@@ -60,6 +66,14 @@ kill_listB.add(wallB)
 
 clock = pygame.time.Clock()
 
+def reposition(ball):
+    ball.velocity = [randint(2,4),randint(-2,4)]
+    ball.killA = False
+    ball.killB = False
+    ball.rect.x = 350
+    ball.rect.y = 250
+    all_sprites_list.draw(screen)
+
 
 carryOn = True
 
@@ -75,11 +89,11 @@ while carryOn:
 
     if ball.killA:
         playerA += 1
-        carryOn = False
+        reposition(ball)
 
     if ball.killB:
         playerB += 1
-        carryOn = False
+        reposition(ball)
 
     keys = pygame.key.get_pressed()
     ball.get_keys()
@@ -96,10 +110,20 @@ while carryOn:
     if keys[pygame.K_DOWN]:
         paddleB.moveDown(5)
 
+    if playerA or playerB >= 10:
+
+        carryOn = False
+
+
+
     all_sprites_list.update(playerA, playerB)
     screen.fill(BLACK)
     pygame.draw.line(screen, WHITE, [349, 0], [349, 500], 5)
     all_sprites_list.draw(screen)
+
+
+
+    # screen.blit(screen, one_graphic, [playerA_position_x, playerA_position_y])
 
     font = pygame.font.Font(None, 74)
     text = font.render(str(playerA), 1, WHITE)
