@@ -11,7 +11,7 @@
 """
 
 import pygame
-
+import math
 
 
 # Define some colors
@@ -25,13 +25,13 @@ pygame.init()
 
 # Set the width and height of the screen [width, height]
 size = (700, 500)
-screen = pygame.display.set_mode(size)
-
+screen = pygame.display.set_mode([700, 500])
 
 # Loop until the user clicks the close button.
-done = False
 
-# Used to manage how fast the screen updates
+done = False
+x = 90
+
 clock = pygame.time.Clock()
 
 # -------- Main Program Loop -----------
@@ -51,7 +51,7 @@ while not done:
     # If you want a background image, replace this clear with blit'ing the
     # background image.
     screen.fill(WHITE)
-    pygame.draw.rect(screen, BLACK, [100, 100, 80, 80])
+
 
     # --- Drawing code should go here
 

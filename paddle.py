@@ -3,6 +3,7 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 
+
 class Paddle(pygame.sprite.Sprite):
 
     def __init__(self, color, width, height):
@@ -22,7 +23,7 @@ class Paddle(pygame.sprite.Sprite):
     def moveDown(self, pixels):
         self.rect.y += pixels
 
-        if self.rect.y > 400:
-            self.rect.y = 400
+        if self.rect.y > 450:
+            self.rect.y = 450
 
 
